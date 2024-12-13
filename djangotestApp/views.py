@@ -31,18 +31,16 @@ def CreatePost(request):
         })
         
 @api_view(['DELETE'])
-def DeletePost(request):
+def DeletePost(request,id):
     try:
-        id = request.data['id']
         Post.objects.get(id=id).delete()
         return Response({'status': 200,'message': 'Post Deleted Successfully'})
     except Post.DoesNotExist:
         return Response({'status': 404,'message': 'Post Not Found'})
     
 @api_view(["GET"])
-def GetPost(request):
+def GetPost(request,id):
     try:
-        id = request.data['id']
         post = Post.objects.get(id=id)
         serializer = PostSerializer(post)
         return Response({
